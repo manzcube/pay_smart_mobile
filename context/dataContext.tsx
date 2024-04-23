@@ -1,17 +1,16 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { IData, dataDefaultValue } from "../constants/types";
-import { retrieveDataFromTheFileSystem } from "../services/DataService";
+// Library
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-type DataContextProps = {
-  data: IData;
-  setData: (data: IData) => void;
-};
+// Types and Constants
+import {
+  DataContextProps,
+  ReactNodeChildrenProps,
+  IData,
+} from "../constants/types";
+import { dataDefaultValue } from "../constants/variables";
+
+// File System API
+import { retrieveDataFromTheFileSystem } from "../services/DataService";
 
 // Create context
 const DataContext = createContext<DataContextProps>({
@@ -22,13 +21,10 @@ const DataContext = createContext<DataContextProps>({
 // Make use of Context
 export const useData = () => useContext(DataContext);
 
-// Typing the provider props to accept ReactNode children
-type DataProviderProps = {
-  children: ReactNode;
-};
-
-export const DataProvider: React.FC<DataProviderProps> = ({ children }) => {
-  const [data, setData] = useState(dataDefaultValue);
+export const DataProvider: React.FC<ReactNodeChildrenProps> = ({
+  children,
+}) => {
+  const [data, setData] = useState<IData>(dataDefaultValue);
 
   useEffect(() => {
     const fetchData = async () => {

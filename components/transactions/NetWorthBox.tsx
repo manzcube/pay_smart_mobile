@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
+// Library
+import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 
-import { retrieveDataFromTheFileSystem } from "../../services/DataService";
+// Context
+import { useData } from "../../context/dataContext";
 
 // Helper Functions
 import {
   formatNumber,
   sumSourcesAmounts,
 } from "../../helpers/helpersFunctions";
-import { useData } from "../../context/dataContext";
 
 export default function NetWorthBox() {
   const { data } = useData();
@@ -35,17 +36,20 @@ export default function NetWorthBox() {
 const styles = StyleSheet.create({
   netWorth: {
     margin: 8,
-    borderColor: "#000",
+    marginBottom: 15,
     width: "100%",
     backgroundColor: "#333",
     borderRadius: 8,
     padding: 14,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderColor: "#707070",
   },
   text: {
     textTransform: "uppercase",
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: "bold",
-    color: "#B2BEB5", // Text color for the source title
+    color: "#B2BEB5",
   },
   netWorthAmount: {
     marginTop: 20,
@@ -64,6 +68,6 @@ const styles = StyleSheet.create({
   currency: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#B2BEB5", // Text color for the source title
+    color: "#B2BEB5",
   },
 });

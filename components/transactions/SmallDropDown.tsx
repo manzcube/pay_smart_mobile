@@ -2,10 +2,14 @@
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 
-// Types and Variables
-import { TSource, SourcesListType, DropDownProps } from "../../constants/types";
+// Constants
+import {
+  TSource,
+  SourcesListType,
+  SmallDropDownProps,
+} from "../../constants/types";
 
-const DropDown: React.FC<DropDownProps> = ({
+const SmallDropDown: React.FC<SmallDropDownProps> = ({
   sources,
   selectedSource,
   setSelectedSource,
@@ -14,12 +18,12 @@ const DropDown: React.FC<DropDownProps> = ({
   const [filteredSources, setFilteredSources] = useState<SourcesListType>([]);
 
   useEffect(() => {
-    // Filter out the "Button" title source
+    // Use useEffect to filter out the 'Button' title source from the list
     const newSources = sources.filter((source) => source.title !== "Button");
     setFilteredSources(newSources);
   }, [sources]);
 
-  // Handle picking a Source
+  // Handle picking a source
   const pickSource: (source: TSource) => void = (source) => {
     setSelectedSource(source);
     setOpen(false);
@@ -29,6 +33,7 @@ const DropDown: React.FC<DropDownProps> = ({
     open ? (
       <View style={styles.sourcesList}>
         <Text style={styles.selectSource}>- Select a Source -</Text>
+
         {filteredSources.map((source: TSource) => (
           <TouchableOpacity
             key={source.docId} // Ensure to use a unique key for each item
@@ -54,27 +59,20 @@ const styles = StyleSheet.create({
     color: "#fff",
     borderRadius: 5,
     justifyContent: "center",
-    height: 50,
-    backgroundColor: "#333",
+    backgroundColor: "#595959",
     padding: 10,
-    marginVertical: 8,
-    borderBottomWidth: 3,
-    borderRightWidth: 3,
-    borderColor: "#707070",
   },
   sourcesList: {
     color: "#fff",
     borderRadius: 5,
     backgroundColor: "#333",
-    padding: 8,
-    marginVertical: 8,
     width: "100%",
   },
   textContainer: {
     backgroundColor: "#5a5a5a",
     borderRadius: 5,
     marginVertical: 3,
-    padding: 15,
+    padding: 10,
     borderBottomWidth: 3,
     borderRightWidth: 3,
     borderColor: "#999",
@@ -83,7 +81,7 @@ const styles = StyleSheet.create({
     color: "white",
   },
   selectSource: {
-    color: "#fff",
+    color: "#c1c1c1",
     justifyContent: "center",
     paddingBottom: 10,
     paddingLeft: 10,
@@ -92,4 +90,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default DropDown;
+export default SmallDropDown;

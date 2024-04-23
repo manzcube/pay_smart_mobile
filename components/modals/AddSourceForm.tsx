@@ -1,22 +1,28 @@
-// AddSourceForm.tsx
+// Library
 import React, { useState } from "react";
 import { View, TextInput, StyleSheet, Alert } from "react-native";
-import { TSource } from "../../constants/types";
+import { TouchableOpacity } from "react-native-gesture-handler";
 import { router } from "expo-router";
+import { Text } from "../Themed";
 
+// Context
+import { useData } from "../../context/dataContext";
+
+// Types
+import { TSource } from "../../constants/types";
+
+// File System API
 import {
   retrieveDataFromTheFileSystem,
   saveDataToFileSystem,
 } from "../../services/DataService";
-import { useData } from "../../context/dataContext";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { Text } from "../Themed";
 
 const AddSourceForm: React.FC = () => {
   const { setData } = useData();
-  const [title, setTitle] = useState("");
-  const [amount, setAmount] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [amount, setAmount] = useState<string>("");
 
+  // Func to create a Source
   const handleSubmit = async () => {
     // Simple validation
     if (!title || !amount) {
@@ -28,6 +34,7 @@ const AddSourceForm: React.FC = () => {
       return;
     }
 
+    // Create new Source Object
     const newSource: TSource = {
       docId: Math.random().toString(36).substring(2), // Generating a pseudo-unique ID
       title,
@@ -55,6 +62,8 @@ const AddSourceForm: React.FC = () => {
       // Reset form
       setTitle("");
       setAmount("");
+
+      // Go back
       router.back();
     } catch (e) {
       console.error(e);
@@ -78,8 +87,17 @@ const AddSourceForm: React.FC = () => {
         placeholder="Amount"
         keyboardType="decimal-pad"
       />
-      <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-        <Text style={styles.buttonText}>Add Source</Text>
+      <TouchableOpacity
+        style={[styles.button, styles.submitButton]}
+        onPress={handleSubmit}
+      >
+        <Text style={styles.buttonText}>Create Source</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={[styles.button, styles.cancelButton]}
+        onPress={() => router.back()}
+      >
+        <Text style={styles.buttonText}>Cancel</Text>
       </TouchableOpacity>
     </View>
   );
@@ -89,31 +107,44 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: 20,
     height: "100%",
-    gap: 50,
+    gap: 15,
   },
   title: {
-    fontSize: 30,
+    fontSize: 20,
+    fontWeight: "bold",
+    marginVertical: 10,
+    textAlign: "center",
     color: "#b4b4b4",
   },
   input: {
     color: "#fff",
-    height: 70,
-    borderColor: "gray",
     borderRadius: 5,
+    height: 50,
+    borderColor: "gray",
     backgroundColor: "#333",
     borderBottomWidth: 2,
-    padding: 20,
+    padding: 10,
     marginVertical: 8,
   },
   button: {
-    padding: 30,
+    marginTop: 20,
+    padding: 15,
     backgroundColor: "#333",
-    borderRadius: 5,
     alignItems: "center",
+    borderRadius: 5,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+  },
+  submitButton: {
+    backgroundColor: "#4682b4",
+    borderColor: "#315b7d",
+  },
+  cancelButton: {
+    backgroundColor: "#F37267",
+    borderColor: "#aa4f48",
   },
   buttonText: {
     fontSize: 16,
-    fontWeight: "bold",
     textTransform: "uppercase",
     color: "white",
   },

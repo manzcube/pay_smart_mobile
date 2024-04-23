@@ -1,12 +1,14 @@
+// Library
 import React from "react";
 import { AntDesign } from "@expo/vector-icons";
-import { Text, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
+
+// Context
 import { useModalType } from "../../context/modalContext";
 
-const { width } = Dimensions.get("window");
-const numColumns = 2; // You can change this number based on how many squares you want per row
-const size = (width - 30) / numColumns; // 10 for padding and 20 for margins
+// Variables
+import { size } from "../../constants/variables";
 
 const AddSourceButton: React.FC = () => {
   const { setModalType } = useModalType();
@@ -14,7 +16,7 @@ const AddSourceButton: React.FC = () => {
     <Link href="/modal" asChild>
       <TouchableOpacity
         style={styles.sourceItem}
-        onPress={() => setModalType("add-source-modal-type")}
+        onPress={() => setModalType("add-source")}
       >
         <AntDesign
           name="addfolder"
@@ -38,6 +40,9 @@ const styles = StyleSheet.create({
     margin: 5,
     backgroundColor: "#333",
     borderRadius: 5,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderColor: "#707070",
   },
   sourceTitle: {
     fontSize: 16,

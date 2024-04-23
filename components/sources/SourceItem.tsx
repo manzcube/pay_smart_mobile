@@ -1,14 +1,12 @@
+// Library
 import React from "react";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { StyleSheet } from "react-native";
 import { Text, View } from "../Themed";
-import { TSource } from "../../constants/types";
-import { size } from "../../constants/variables";
 
-interface SourceItemProps {
-  item: TSource;
-  setOnEdit: (onEdit: boolean) => void;
-}
+// Constants
+import { SourceItemProps } from "../../constants/types";
+import { size } from "../../constants/variables";
 
 const SourceItem: React.FC<SourceItemProps> = ({ item, setOnEdit }) => {
   return (
@@ -29,18 +27,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    backgroundColor: "#333", // Dark item background color
+    backgroundColor: "#333",
     borderRadius: 5,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderColor: "#707070",
   },
   sourceTitle: {
-    fontSize: 16,
+    fontSize: 22,
     fontWeight: "bold",
-    color: "#B2BEB5", // Text color for the source title
+    color: "#B2BEB5",
   },
   sourceAmount: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "bold",
-    color: "#fff", // White color for amounts
+    color: "#fff",
   },
 });
 

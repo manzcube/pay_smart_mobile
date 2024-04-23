@@ -1,13 +1,18 @@
+// Library
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, SectionList } from "react-native";
 
-import { retrieveDataFromTheFileSystem } from "../../services/DataService";
+// Helper Functions
 import { groupTransactionsByDate } from "../../helpers/helpersFunctions";
-import { useData } from "../../context/dataContext";
-import { TransactionsListType } from "../../constants/types";
-import TransactionItem from "./TransactionItem";
 
-type TGroupedTransactions = { title: string; data: TransactionsListType }[];
+// Context
+import { useData } from "../../context/dataContext";
+
+// Constants
+import { TGroupedTransactions } from "../../constants/types";
+
+// Components
+import TransactionItem from "./TransactionItem";
 
 export default function TransactionsList() {
   const { data } = useData();
@@ -15,6 +20,7 @@ export default function TransactionsList() {
     useState<TGroupedTransactions>([]);
 
   useEffect(() => {
+    // Group the transaction for better display
     if (data.transactions.length) {
       const newList = groupTransactionsByDate(data.transactions);
       setGroupedTransactions(newList);
@@ -33,6 +39,7 @@ export default function TransactionsList() {
           renderSectionHeader={({ section: { title } }) => (
             <Text style={styles.dateTitle}>{title}</Text>
           )}
+          contentContainerStyle={styles.listContentContainer}
         />
       ) : (
         <Text style={styles.noTransactions}>No Transactions Yet</Text>
@@ -52,7 +59,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   sectionList: {
-    marginLeft: 8,
+    marginLeft: 2,
+    paddingRight: 5,
   },
   balanceList: {
     marginTop: 20,
@@ -83,5 +91,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#B2BEB5",
     textAlign: "center",
+  },
+  listContentContainer: {
+    paddingBottom: 300, // This is the space at the bottom of the list
   },
 });

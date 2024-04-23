@@ -1,24 +1,22 @@
+// Library
 import React from "react";
 import { View, Text } from "../Themed";
 import { TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+
+// Constants
 import { size } from "../../constants/variables";
-import { TSource } from "../../constants/types";
+import { TSource, EditSourceItemProps } from "../../constants/types";
+
+// File System API
 import {
   retrieveDataFromTheFileSystem,
   saveDataToFileSystem,
 } from "../../services/DataService";
+
+// Context
 import { useData } from "../../context/dataContext";
 
-interface EditSourceItemProps {
-  title: string;
-  amount: string;
-  item: TSource;
-  setTitle: (title: string) => void;
-  setAmount: (amount: string) => void;
-  closeAll: () => void;
-}
-
-const EditSourceItem: React.FC<EditSourceItemProps> = ({
+const EditSourceForm: React.FC<EditSourceItemProps> = ({
   title,
   amount,
   setTitle,
@@ -26,9 +24,10 @@ const EditSourceItem: React.FC<EditSourceItemProps> = ({
   item,
   setAmount,
 }) => {
-  const updateSource: (id: string) => void = async (id) => {
-    const { data, setData } = useData();
-    // Delete source and update data in File System
+  const { setData } = useData();
+
+  // Update Source Function
+  const updateSource = async (id: string) => {
     try {
       // Read the current data file
       const currentData = await retrieveDataFromTheFileSystem();
@@ -55,12 +54,14 @@ const EditSourceItem: React.FC<EditSourceItemProps> = ({
         // Set Data Context with updated data
         setData(updatedData);
       });
+
       closeAll();
     } catch (e) {
       console.error(e);
       Alert.alert("Error", "Failed to DELETE the source. Please try again.");
     }
   };
+
   return (
     <View style={styles.updateSourceItem}>
       <TextInput
@@ -78,12 +79,15 @@ const EditSourceItem: React.FC<EditSourceItemProps> = ({
       />
       <View style={styles.row}>
         <TouchableOpacity
-          style={styles.updateButton}
+          style={[styles.button, styles.submitButton]}
           onPress={() => updateSource(item.docId)}
         >
           <Text style={styles.buttonText}>Update Source</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.updateButton} onPress={closeAll}>
+        <TouchableOpacity
+          style={[styles.button, styles.cancelButton]}
+          onPress={closeAll}
+        >
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -92,43 +96,52 @@ const EditSourceItem: React.FC<EditSourceItemProps> = ({
 };
 
 const styles = StyleSheet.create({
+  updateSourceItem: {
+    width: size,
+    height: size,
+    padding: 10,
+    margin: 5,
+    backgroundColor: "#333",
+    borderRadius: 5,
+  },
   row: {
-    flexDirection: "row",
     height: "50%",
     gap: 8,
+    backgroundColor: "#333",
     alignItems: "center",
-    justifyContent: "center", // Evenly space buttons in a row
-    width: "100%", // Take full width of the container
+    justifyContent: "center",
+    width: "100%",
   },
   buttonText: {
     color: "white",
     fontSize: 13,
     fontWeight: "bold",
   },
-  updateSourceItem: {
-    width: size,
-    height: size,
-    padding: 10,
-    margin: 5,
-    backgroundColor: "#333", // Dark item background color
-    borderRadius: 5,
-  },
   input: {
     color: "#fff",
-    borderColor: "gray",
     borderRadius: 5,
     padding: 8,
-    backgroundColor: "#333",
-    borderBottomWidth: 2,
+    backgroundColor: "#595959",
     marginVertical: 8,
   },
-  updateButton: {
-    backgroundColor: "#282828",
+  button: {
+    width: "100%",
     padding: 10,
+    borderRadius: 5,
     justifyContent: "center",
     alignItems: "center",
     marginHorizontal: 5,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+  },
+  cancelButton: {
+    backgroundColor: "#F37267",
+    borderColor: "#aa4f48",
+  },
+  submitButton: {
+    backgroundColor: "#4682b4",
+    borderColor: "#315b7d",
   },
 });
 
-export default EditSourceItem;
+export default EditSourceForm;

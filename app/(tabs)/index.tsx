@@ -1,5 +1,8 @@
+// Library
 import React from "react";
 import { View, StyleSheet } from "react-native";
+
+// Components
 import TransactionsButtons from "../../components/transactions/TransactionsButtons";
 import NetWorthBox from "../../components/transactions/NetWorthBox";
 import TransactionsList from "../../components/transactions/TransactionsList";

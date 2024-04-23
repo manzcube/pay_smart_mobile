@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+// Library
+import React from "react";
 import { Text, StyleSheet, FlatList } from "react-native";
 
-import { retrieveDataFromTheFileSystem } from "../../services/DataService";
+// Context
 import { useData } from "../../context/dataContext";
+
+// Components
 import Source from "./Source";
 import AddSourceButton from "./AddSourceButton";
 

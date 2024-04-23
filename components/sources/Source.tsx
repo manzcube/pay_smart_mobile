@@ -1,12 +1,13 @@
+// Library
 import React, { useState } from "react";
-import { TSource } from "../../constants/types";
-import EditSourceItem from "./EditSourceItem";
+
+// Constants
+import { SourceProps } from "../../constants/types";
+
+// Components
+import EditSourceForm from "./EditSourceForm";
 import SourceItem from "./SourceItem";
 import EditSourceContainer from "./EditSourceContainer";
-
-type SourceProps = {
-  item: TSource;
-};
 
 const Source: React.FC<SourceProps> = ({ item }) => {
   const [onEdit, setOnEdit] = useState<boolean>(false);
@@ -14,7 +15,7 @@ const Source: React.FC<SourceProps> = ({ item }) => {
   const [title, setTitle] = useState<string>(item.title);
   const [amount, setAmount] = useState<string>(item.amount.toString());
 
-  // Close all edit
+  // Close all edit components
   const closeAll: () => void = () => {
     setOnEdit(false);
     setOnUpdatingSource(false);
@@ -28,7 +29,7 @@ const Source: React.FC<SourceProps> = ({ item }) => {
         item={item}
       />
     ) : (
-      <EditSourceItem
+      <EditSourceForm
         item={item}
         title={title}
         amount={amount}

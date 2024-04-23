@@ -51,7 +51,6 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   const colorScheme = useColorScheme();
-  const { modalType } = useModalType();
 
   return (
     <DataProvider>
@@ -63,7 +62,7 @@ function RootLayoutNav() {
             <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
             <Stack.Screen
               name="modal"
-              options={{ presentation: "modal", title: `${modalType}` }}
+              options={{ presentation: "modal", title: "" }}
             />
           </Stack>
         </ThemeProvider>

@@ -1,15 +1,10 @@
-// Library
 import { StyleSheet } from "react-native";
+import { View, Text } from "../Themed";
 
-// Components
-import { View, Text } from "../../components/Themed";
-import SourcesList from "../../components/sources/SourcesList";
-
-export default function TabTwoScreen() {
+export default function TabThreeScreen() {
   return (
     <View style={styles.container}>
-      <SourcesList />
-      <Text style={styles.footerText}>Press and Hold on a Source to edit.</Text>
+      <Text style={styles.footerText}>This page is for statistics.</Text>
     </View>
   );
 }

@@ -1,3 +1,4 @@
+// Library
 import React from "react";
 import {
   TouchableOpacity,
@@ -7,11 +8,12 @@ import {
   Dimensions,
 } from "react-native";
 import { Link } from "expo-router";
-import { useModalType } from "../../context/modalContext";
 
-const { width } = Dimensions.get("window");
-const numColumns = 2;
-const size = (width - 50) / numColumns;
+// Constants
+import { size } from "../../constants/variables";
+
+// Context
+import { useModalType } from "../../context/modalContext";
 
 const TransactionsButtons: React.FC = () => {
   const { setModalType } = useModalType();
@@ -21,7 +23,7 @@ const TransactionsButtons: React.FC = () => {
       <Link href="/modal" style={styles.button} asChild>
         <TouchableOpacity
           style={styles.income}
-          onPress={() => setModalType("add-transaction-income")}
+          onPress={() => setModalType("add-income")}
         >
           <Text style={styles.text}>income</Text>
         </TouchableOpacity>
@@ -29,7 +31,7 @@ const TransactionsButtons: React.FC = () => {
       <Link href="/modal" style={styles.button} asChild>
         <TouchableOpacity
           style={styles.expense}
-          onPress={() => setModalType("add-transaction-expense")}
+          onPress={() => setModalType("add-expense")}
         >
           <Text style={styles.text}>expense</Text>
         </TouchableOpacity>
@@ -50,8 +52,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 5,
-    // backgroundColor: "#333",
-    borderRadius: 5,
+    borderBottomWidth: 4,
+    borderRightWidth: 4,
+    borderRadius: 8,
   },
   text: {
     textTransform: "uppercase",
@@ -60,9 +63,11 @@ const styles = StyleSheet.create({
   },
   income: {
     backgroundColor: "#73D474",
+    borderColor: "#509451",
   },
   expense: {
     backgroundColor: "#F37267",
+    borderColor: "#aa4f48",
   },
 });
 

@@ -1,5 +1,6 @@
+// Library
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 import { Tabs, router } from "expo-router";
 import { Pressable, useColorScheme } from "react-native";
 
@@ -21,15 +22,34 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? "light"].tint,
       }}
     >
+      {/* <Tabs.Screen
+        name="three"
+        options={{
+          title: "Stats",
+          tabBarLabel: "",
+          tabBarIcon: ({ color }) => (
+            <Ionicons
+              name="stats-chart-outline"
+              size={24}
+              color={color}
+              style={{
+                marginTop: 35,
+                height: "100%",
+              }}
+            />
+          ),
+        }}
+      /> */}
       <Tabs.Screen
         name="index"
         options={{
-          title: "Dashboard",
+          title: "Home",
+          tabBarLabel: "",
           tabBarIcon: ({ color }) => (
             <AntDesign
               name="home"
               size={28}
-              style={{ marginBottom: -3 }}
+              style={{ marginTop: 30, height: "100%" }}
               color={color}
             />
           ),
@@ -38,7 +58,7 @@ export default function TabLayout() {
               {({ pressed }) => (
                 <FontAwesome
                   name="info-circle"
-                  size={25}
+                  size={20}
                   color={Colors[colorScheme ?? "light"].text}
                   style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
                 />
@@ -51,12 +71,16 @@ export default function TabLayout() {
         name="two"
         options={{
           title: "Sources",
+          tabBarLabel: "",
           tabBarIcon: ({ color }) => (
             <AntDesign
               name="folder1"
               size={24}
               color={color}
-              style={{ marginBottom: -3 }}
+              style={{
+                marginTop: 35,
+                height: "100%",
+              }}
             />
           ),
         }}

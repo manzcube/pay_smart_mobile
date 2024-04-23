@@ -1,9 +1,11 @@
+// Library
 import React, { createContext, useContext, useState, ReactNode } from "react";
 
-type ModalTypeContextProps = {
-  modalType: string;
-  setModalType: (modalType: string) => void;
-};
+// Types
+import {
+  ModalTypeContextProps,
+  ReactNodeChildrenProps,
+} from "../constants/types";
 
 // Create context
 const ModalTypeContext = createContext<ModalTypeContextProps>({
@@ -14,15 +16,10 @@ const ModalTypeContext = createContext<ModalTypeContextProps>({
 // Make use of Context
 export const useModalType = () => useContext(ModalTypeContext);
 
-// Typing the provider props to accept ReactNode children
-type ModalTypeProviderProps = {
-  children: ReactNode;
-};
-
-export const ModalTypeProvider: React.FC<ModalTypeProviderProps> = ({
+export const ModalTypeProvider: React.FC<ReactNodeChildrenProps> = ({
   children,
 }) => {
-  const [modalType, setModalType] = useState("default");
+  const [modalType, setModalType] = useState<string>("default");
 
   return (
     <ModalTypeContext.Provider value={{ modalType, setModalType }}>
